@@ -24,7 +24,6 @@ func FetchChart(chartName *string, version *string, dest *string, helmPath *stri
 	}
 
 	cmd := exec.Command(*helmPath, cmdArgs...)
-	fmt.Println(cmd)
 	errExec := cmd.Run()
 	if errExec != nil {
 		log.Fatal(errExec)
