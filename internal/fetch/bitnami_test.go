@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"testing"
 
-	"helm-generator/fetch"
+	"helm-generator/internal/fetch"
 )
 
 func TestBitnamiRepoExists(t *testing.T) {

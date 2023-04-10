@@ -1,7 +1,7 @@
 package fetch_test
 
 import (
-	"helm-generator/fetch"
+	"helm-generator/internal/fetch"
 	"os"
 	"path/filepath"
 	"testing"
