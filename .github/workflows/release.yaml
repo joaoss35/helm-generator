@@ -23,10 +23,17 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.5
+        with:
+          github_token: ${{ secrets.PERSONAL_GIT_TOKEN }}
+          default_bump: minor
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@f82d6c1c344bcacabba2c841718984797f664a6b # v4.2.0
         with:
-          args: release --clean --snapshot
+          args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_GIT_TOKEN }}
 
