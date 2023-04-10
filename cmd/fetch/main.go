@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"helm-generator/fetch"
+	"helm-generator/internal/fetch"
 	"os"
 	"os/exec"
 )
