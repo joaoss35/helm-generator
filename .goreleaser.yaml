@@ -1,0 +1,20 @@
+
+builds:
+  - goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s
+      - -w
+      - -X github.com/joaoss35/helm-generator/fetch.gitVersion={{.Version}}
+      - -X github.com/joaoss35/helm-generator/fetch.gitCommit={{.Commit}}
+      - -X github.com/joaoss35/helm-generator/fetch.buildDate={{.Date}}
+
+changelog:
+  skip: true
+
+archives:
+  - id: compressed
+    format: tar.gz
+  - id: uncompressed
+    format: binary
