@@ -20,7 +20,16 @@ func TestFetchChart(t *testing.T) {
 		}
 		defer os.RemoveAll(chartDir)
 
-		err := fetch.FetchChart(&chartName, &version, &dest, &helmPath)
+		cfg := fetch.ChartConfig{
+			Name:        chartName,
+			Version:     version,
+			Destination: dest,
+			Path:        helmPath,
+		}
+
+		chart := fetch.NewChart(cfg)
+
+		err := chart.Fetch()
 
 		// Expect no error to be returned and message to be printed
 		if err != nil {
@@ -43,7 +52,16 @@ func TestFetchChart(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		err := fetch.FetchChart(&chartName, &version, &dest, &helmPath)
+		cfg := fetch.ChartConfig{
+			Name:        chartName,
+			Version:     version,
+			Destination: dest,
+			Path:        helmPath,
+		}
+
+		chart := fetch.NewChart(cfg)
+
+		err := chart.Fetch()
 
 		// Expect no error to be returned and chart directory to be created
 		if err != nil {
