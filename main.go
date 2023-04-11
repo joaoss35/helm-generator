@@ -22,30 +22,40 @@ func main() {
 	}
 
 	// Check if Helm is installed
-	helmErr := fetch.CheckHelm()
+	err := fetch.CheckHelm()
 
-	// Check if Bitnami repository is added
-	bitnamiErr := fetch.AddBitnamiRepo()
-
-	if helmErr != nil {
+	if err != nil {
 		fmt.Println("Helm could not be found in PATH")
 		os.Exit(1)
 	}
 
-	if bitnamiErr != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", bitnamiErr)
+	// Check if Bitnami repository is added
+	err = fetch.AddBitnamiRepo()
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}
 
 	// Fetch the Helm path
-	helmPath, pathErr := exec.LookPath("helm")
-	if pathErr != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", pathErr)
+	helmPath, err := exec.LookPath("helm")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}
 
+	cfg := fetch.ChartConfig{
+		Name:        *chartName,
+		Version:     *version,
+		Destination: *dest,
+		Path:        helmPath,
+	}
+
+	chart := fetch.NewChart(cfg)
+
 	// Fetch the chart
-	err := fetch.FetchChart(chartName, version, dest, &helmPath)
+	//err = fetch.FetchChart(cfg)
+	err = chart.Fetch()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
