@@ -54,7 +54,6 @@ func main() {
 	chart := fetch.NewChart(cfg)
 
 	// Fetch the chart
-	//err = fetch.FetchChart(cfg)
 	err = chart.Fetch()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
